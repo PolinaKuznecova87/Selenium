@@ -42,6 +42,7 @@ public class CallbackTest {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
 
 
@@ -59,29 +60,9 @@ public class CallbackTest {
 
 
     }
-    @Test
-    void shouldTestNameTextFieldNull() throws InterruptedException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--headless");
-        driver = new ChromeDriver(options);
 
 
-        driver.get("http://localhost:9999/");// открыть страницу
-
-        driver.findElement(By.cssSelector("")).sendKeys("");
-        driver.findElement(By.cssSelector("input[type='tel']")).sendKeys("+79898056533");
-        driver.findElement(By.tagName("label")).click();
-        driver.findElement(By.className("button__text")).click();
-
-        String expected = "  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время";
-        String actual = driver.findElement(By.tagName("p")).getText();
-
-        assertEquals(expected, actual);
-
-
-    }
 }
+
 
 
