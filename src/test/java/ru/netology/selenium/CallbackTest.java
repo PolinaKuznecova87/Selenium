@@ -28,11 +28,10 @@ public class CallbackTest {
 
     @AfterEach
     void tearDown() {
-        {
-            driver.quit();
-            driver = null;
 
-        }
+            driver.quit();
+
+
     }
 
 
@@ -53,7 +52,7 @@ public class CallbackTest {
         driver.findElement(By.tagName("label")).click();
         driver.findElement(By.className("button__text")).click();
 
-        String expected = "  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время";
+        String expected = ("  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.");
         String actual = driver.findElement(By.tagName("p")).getText();
 
         assertEquals(expected, actual);
