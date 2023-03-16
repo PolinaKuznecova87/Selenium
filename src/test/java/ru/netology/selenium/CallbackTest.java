@@ -18,6 +18,8 @@ public class CallbackTest {
     @BeforeAll
     static void setupAll() {
         WebDriverManager.chromedriver().setup();
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Win 10 Pro\\Desktop\\AVTOTESTI\\Selenium\\driver\\chromedriver.exe");
+
     }
 
 
@@ -29,14 +31,15 @@ public class CallbackTest {
     @AfterEach
     void tearDown() {
 
-            driver.quit();
+        driver.quit();
+        driver = null;
 
 
     }
 
 
     @Test
-    void shouldTestWeb() throws InterruptedException {
+    void shouldTestWeb() throws UnsupportedOperationException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
@@ -60,8 +63,35 @@ public class CallbackTest {
 
     }
 
+    //@Test
+    //void shouldHyphenatedLastName() throws InterruptedException {
+    //ChromeOptions options = new ChromeOptions();
+    //options.addArguments("--disable-dev-shm-usage");
+    //options.addArguments("--no-sandbox");
+    //options.addArguments("--headless");
+    // options.addArguments("--remote-allow-origins=*");
+    // driver = new ChromeDriver(options);
+
+
+    // driver.get("http://localhost:9999/");// открыть страницу
+
+    //driver.findElement(By.cssSelector("input[type='text']")).sendKeys("Римский-Корсоков Сергей");
+    //driver.findElement(By.cssSelector("input[type='tel']")).sendKeys("+79898056532");
+    //driver.findElement(By.tagName("label")).click();
+    //driver.findElement(By.className("button__text")).click();
+
+    //String expected = ("  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.");
+    //String actual = driver.findElement(By.tagName("p")).getText();
+
+    //assertEquals(expected, actual);
+
 
 }
+
+
+
+
+
 
 
 
