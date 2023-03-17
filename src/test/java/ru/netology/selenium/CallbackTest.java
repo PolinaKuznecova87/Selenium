@@ -19,22 +19,29 @@ public class CallbackTest {
     private WebDriver driver;
 
     @BeforeAll
-    static void setupAll() {
+    public static void setupAll() {
 
 
         WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Win 10 Pro\\Desktop\\AVTOTESTI\\Selenium\\driver\\chromedriver.exe");
+
 
     }
 
 
     @BeforeEach
-    void setUp() {
-        driver = new ChromeDriver();
+    public void beforeEach() {
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
+
+        driver.get("http://localhost:9999/");
     }
 
     @AfterEach
-    void tearDown() {
+    public void afterEach() {
 
         driver.quit();
         driver = null;
@@ -43,31 +50,18 @@ public class CallbackTest {
     }
 
 
-
     @Test
-    void shouldTestWeb() throws UnsupportedOperationException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--headless");
-        driver = new ChromeDriver(options);
+    public void shouldTestWeb() {
 
 
-
-        driver.get("http://localhost:9999/");
-
-        driver.findElement(By.cssSelector("input[type='text']")).sendKeys("Кузнецов Сергей");
-        driver.findElement(By.cssSelector("input[type='tel']")).sendKeys("+79898056533");
-        driver.findElement(By.tagName("label")).click();
-        driver.findElement(By.className("button__text")).click();
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Кузнецов Сергей");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79898056533");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("button.button")).click();
+        var actualText = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText().trim();
 
 
-
-        String expected = ("  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.");
-        String actual = driver.findElement(By.tagName("p")).getText();
-
-        assertEquals(expected, actual);
-
+        assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", actualText);
 
 
     }
