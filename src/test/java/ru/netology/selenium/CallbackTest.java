@@ -35,6 +35,7 @@ public class CallbackTest {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
+        options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
 
         driver.get("http://localhost:9999/");
@@ -58,6 +59,7 @@ public class CallbackTest {
         driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79898056533");
         driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         driver.findElement(By.cssSelector("button.button")).click();
+
         var actualText = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText().trim();
 
 
