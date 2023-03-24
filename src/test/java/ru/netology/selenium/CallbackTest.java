@@ -68,29 +68,76 @@ public class CallbackTest {
 
     }
 
+    @Test
+    public void shouldTestThenLastNameWithAHyphen() {
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Кузнецов-Корсоков Сергей");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79898056533");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("button.button")).click();
+
+        var actualText = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText().trim();
+
+
+        assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", actualText);
+
+
+    }
+    @Test
+    public void shouldTestThenTheLastNameFieldIsNotFilledIn() {
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79898056533");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("button.button")).click();
+
+        var actualText = driver.findElement(By.cssSelector(".input__sub")).getText().trim();
+
+
+        assertEquals("Поле обязательно для заполнения", actualText);
+
+
+    }
+    @Test
+    public void shouldTestThenTheLastNameFieldWithTheABCLetters() {
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Sergey");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79898056533");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("button.button")).click();
+
+        var actualText = driver.findElement(By.cssSelector(".input__sub")).getText().trim();
+
+
+        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", actualText);
+
+
+    }
+    @Test
+    public void shouldTestThenTheLastNameFieldWithSymbol() {
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("сер%%гей");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79898056533");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("button.button")).click();
+
+        var actualText = driver.findElement(By.cssSelector(".input__sub")).getText().trim();
+
+
+        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", actualText);
+
+
+    }
     //@Test
-    //void shouldHyphenatedLastName() throws InterruptedException {
-    //ChromeOptions options = new ChromeOptions();
-    //options.addArguments("--disable-dev-shm-usage");
-    //options.addArguments("--no-sandbox");
-    //options.addArguments("--headless");
-    // options.addArguments("--remote-allow-origins=*");
-    // driver = new ChromeDriver(options);
+    //public void shouldTestThenPhoneFieldWith5DigitsInThePhone() {
+        //driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Кузнецов Сергей");
+        //driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+79898");
+       // driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+       // driver.findElement(By.cssSelector("button.button")).click();
+
+        //var actualText = driver.findElement(By.cssSelector(".input__sub")).getText().trim();
 
 
-    // driver.get("http://localhost:9999/");// открыть страницу
-
-    //driver.findElement(By.cssSelector("input[type='text']")).sendKeys("Римский-Корсоков Сергей");
-    //driver.findElement(By.cssSelector("input[type='tel']")).sendKeys("+79898056532");
-    //driver.findElement(By.tagName("label")).click();
-    //driver.findElement(By.className("button__text")).click();
-
-    //String expected = ("  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.");
-    //String actual = driver.findElement(By.tagName("p")).getText();
-
-    //assertEquals(expected, actual);
+       // assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", actualText);
 
 
+    //}
 }
 
 
